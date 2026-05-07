@@ -66,6 +66,57 @@ npm install
 npm run dev
 ```
 
+Neu PowerShell chan `npm.ps1`, dung lenh:
+
+```powershell
+npm.cmd install
+npm.cmd run dev
+```
+
+Frontend hien co prototype cac nhom man hinh:
+
+- Pre-login: splash, welcome, language, login, register, OTP, forgot password.
+- Khach hang: home, category, search, product detail, review, cart, checkout, success, tracking, history, wishlist, notification, profile.
+- Admin: admin login, dashboard, product, order, user, voucher, AI analytics.
+- Shipper va nang cao: shipper dashboard, realtime delivery, chatbot AI, livestream, AR preview.
+
+## Ket Noi Frontend Va Backend
+
+Khi chay dev, frontend React dung Vite proxy trong `frontend-react/vite.config.js`:
+
+```text
+React 5173 -> /api/* -> API Gateway 8080 -> Product/Auth/Order services
+```
+
+Vi du de man hinh React lay san pham tu backend:
+
+1. Terminal 1:
+
+```powershell
+.\mvnw.cmd -pl services/api-gateway spring-boot:run
+```
+
+2. Terminal 2:
+
+```powershell
+.\mvnw.cmd -pl services/product-service spring-boot:run
+```
+
+3. Terminal 3:
+
+```powershell
+cd frontend-react
+npm.cmd run dev
+```
+
+Mo:
+
+```text
+http://localhost:5173
+```
+
+Neu backend chay dung, thanh trang thai tren UI se hien `Backend connected`.
+
 ## API Mau
 
 - `POST http://localhost:8080/api/auth/register`
