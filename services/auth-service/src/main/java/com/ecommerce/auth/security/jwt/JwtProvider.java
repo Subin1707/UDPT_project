@@ -1,5 +1,6 @@
 package com.ecommerce.auth.security.jwt;
 
+import com.ecommerce.shared.constants.UserRole;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +19,11 @@ public class JwtProvider {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String subject) {
+    public String generateToken(String subject, UserRole role) {
         Instant now = Instant.now();
         return Jwts.builder()
                 .subject(subject)
+                .claim("role", role.name())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(now.plusSeconds(3600)))
                 .signWith(key)
